@@ -1,3 +1,5 @@
+//server.js
+
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
@@ -22,8 +24,9 @@ export const startServer = () => {
     );
 
     app.get('/contacts', async (req, res) => {
+        console.log('Received request for all contacts...');
         const contacts = await getAllContacts();
-
+        console.log('Contacts:', contacts);
         res.status(200).json({
             status: 200,
             message: 'Successfully found contacts!',
@@ -60,3 +63,5 @@ export const startServer = () => {
         console.log(`Server is running on port ${PORT}`);
     });
 };
+
+//zyoA9dWSNMdhGpKl
