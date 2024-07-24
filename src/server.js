@@ -39,12 +39,20 @@ export const startServer = () => {
 
         const contact = await getContactById(contactId);
 
+        if (!contact) {
+            res.status(404).json({
+                message: 'Contact not found',
+            });
+            return;
+        }
+
         res.status(200).json({
             status: 200,
             message: `Successfully found contact with id ${contactId}!`,
             data: contact,
         });
     });
+
 
     app.use('*', (req, res, next) => {
         res.status(404).json({
@@ -63,5 +71,3 @@ export const startServer = () => {
         console.log(`Server is running on port ${PORT}`);
     });
 };
-
-//zyoA9dWSNMdhGpKl
