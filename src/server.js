@@ -11,23 +11,23 @@ import notFoundHandler from "./middlewares/notFoundHandler.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
 import env from './utils/env.js';
-import { getAllContacts, getContactById } from './services/contact-service.js';
 
 const PORT = Number(env('PORT', '3000'));
 
 export const startServer = () => {
     const app = express();
-
-    app.use(express.json());
-    app.use(cors());
-
-    app.use(
-        pino({
+    const logger = pino(
+        {
             transport: {
                 target: 'pino-pretty',
             },
-        }),
+        }
     );
+
+    app.use(logger);
+    app.use(cors());
+    app.use(express.json());
+
 
 app.use("/api/contacts", contactsRouter);
 
